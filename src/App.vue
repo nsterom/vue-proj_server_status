@@ -3,13 +3,22 @@
     <app-header></app-header>
     <hr>
     <div class="row">
-      <app-servers serverName="serverGroup1" status="Critical"></app-servers>
-      <app-servers serverName="serverGroup2" v-bind:status="status"></app-servers>
-      <app-servers serverName="serverGroup3" 
-        v-bind:status="status" 
-        v-on:isRestart="status = $event">
+      <app-servers serverName3="serverGroup1" status3="Critical" memUse3="16G" strogeUse3="100G"></app-servers>
+      <app-servers serverName3="serverGroup2" v-bind:status3="status" memUse3="16G" strogeUse3="100G"></app-servers>
+      <app-servers serverName3="serverGroup3" 
+        v-bind:status3="status" 
+        v-bind:memUse3="memUse"
+        strogeUse3="100G"
+        v-on:isMoreMenory3="memUse = $event">
       </app-servers>
-      <app-server-details></app-server-details>
+      <app-servers 
+        serverName3="serverGroup4" 
+        status3="Normal" 
+        memUse="16G"
+        v-bind:strogeUse3="strogeUse" 
+        v-bind:moreStroge3="moreHDD">
+      </app-servers>
+      <app-server-details status2="NOT OK2" v-on:isRestartAll="status = $event"></app-server-details>
     </div>
     <hr>
     <app-footer></app-footer>
@@ -17,15 +26,22 @@
 </template>
 
 <script>
-  import Header from './Header.vue'
-  import Footer from './Footer.vue'
-  import Servers from './Servers.vue'
-  import ServerDetails from './ServerDetails.vue'
+  import Header from './share/Header.vue'
+  import Footer from './share/Footer.vue'
+  import Servers from './server/Servers.vue'
+  import ServerDetails from './server/ServerDetails.vue'
 
   export default {
     data: function() {
       return {
-        status: 'down'
+        status: 'down',
+        memUse: '16G',
+        strogeUse: '100G'
+      }
+    },
+    methods: {
+      moreHDD: function() {
+        this.strogeUse3 = '200G'
       }
     },
     components: {
