@@ -3,7 +3,12 @@
     <app-header></app-header>
     <hr>
     <div class="row">
-      <app-servers></app-servers>
+      <app-servers serverName="serverGroup1" status="Critical"></app-servers>
+      <app-servers serverName="serverGroup2" v-bind:status="status"></app-servers>
+      <app-servers serverName="serverGroup3" 
+        v-bind:status="status" 
+        v-on:isRestart="status = $event">
+      </app-servers>
       <app-server-details></app-server-details>
     </div>
     <hr>
@@ -18,6 +23,11 @@
   import ServerDetails from './ServerDetails.vue'
 
   export default {
+    data: function() {
+      return {
+        status: 'down'
+      }
+    },
     components: {
       'app-header': Header,
       'app-servers': Servers,
